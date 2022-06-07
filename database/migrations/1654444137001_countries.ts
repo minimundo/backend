@@ -5,7 +5,10 @@ export default class Countries extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('cod_country')
+      table.string('name', 20).notNullable()
+      table.string('continent', 20).notNullable()
+      table.string('flag_image', 100)
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
