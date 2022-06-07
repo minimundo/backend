@@ -1,3 +1,3 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class CountryController {}
+export default class CountriesController {}
