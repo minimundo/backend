@@ -26,4 +26,5 @@ Route.group(() => {
   })
 
   Route.post('/teachers/new', 'TeachersController.register')
+  Route.get('/teachers', 'TeachersController.list')
 }).prefix('/api')

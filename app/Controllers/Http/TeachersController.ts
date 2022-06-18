@@ -10,8 +10,12 @@ export default class TeachersController {
 
     response.status(201)
 
-    return {
-      message: 'successfully registered teacher',
-    }
+    return teacher
+  }
+
+  public async list({ request, response }: HttpContextContract) {
+    const teachers = Teacher.all()
+
+    return teachers
   }
 }
