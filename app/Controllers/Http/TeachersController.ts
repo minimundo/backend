@@ -4,9 +4,9 @@ import Teacher from 'App/Models/Teacher'
 
 export default class TeachersController {
   public async register({ request, response }: HttpContextContract) {
-    const dataToCreate = request.body()
+    const data = request.only(['name', 'email', 'password'])
 
-    const teacher = await Teacher.create(dataToCreate)
+    const teacher = await Teacher.create(data)
 
     response.status(201)
 
