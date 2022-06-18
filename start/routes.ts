@@ -27,4 +27,6 @@ Route.group(() => {
 
   Route.post('/teachers/new', 'TeachersController.register')
   Route.get('/teachers', 'TeachersController.list')
+  Route.put('/teachers/:id', 'TeachersController.update')
+  Route.delete('/teachers/:id', 'TeachersController.destroy')
 }).prefix('/api')
