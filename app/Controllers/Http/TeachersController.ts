@@ -3,7 +3,13 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Teacher from 'App/Models/Teacher'
 
 export default class TeachersController {
-  public async register({ request, response }: HttpContextContract) {
+  public async index() {
+    const teachers = Teacher.all()
+
+    return teachers
+  }
+
+  public async store({ request, response }: HttpContextContract) {
     const data = request.only(['name', 'email', 'password'])
 
     const teacher = await Teacher.create(data)
@@ -13,14 +19,16 @@ export default class TeachersController {
     return teacher
   }
 
-  public async update({ request, response, params }: HttpContextContract) {
+  public async show({ params }: HttpContextContract) {
+    const teacher = await Teacher.findOrFail(params.id)
+
+    return teacher
+  }
+
+  public async update({ request, params }: HttpContextContract) {
     const { name, email, password } = request.all()
 
-    const teacher = await Teacher.find(params.id)
-
-    if (!teacher) {
-      response.status(404).send({ message: 'Teacher not found' })
-    }
+    const teacher = await Teacher.findOrFail(params.id)
 
     teacher.name = name
     teacher.email = email
@@ -31,18 +39,8 @@ export default class TeachersController {
     return teacher
   }
 
-  public async list({ request, response }: HttpContextContract) {
-    const teachers = Teacher.all()
-
-    return teachers
-  }
-
   public async destroy({ response, params }) {
-    const teacher = await Teacher.find(params.id)
-
-    if (!teacher) {
-      response.status(404).send({ message: 'Teacher not found' })
-    }
+    const teacher = await Teacher.findOrFail(params.id)
 
     await teacher.delete()
 
