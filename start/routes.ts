@@ -19,11 +19,16 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import 'App/Modules/Teacher/routes'
+import 'App/Modules/Auth/routes'
+
+Route.where('id', {
+  match: /^[0-9]+$/,
+  cast: (id) => Number(id),
+})
 
 Route.group(() => {
-  Route.get('/', async () => {
-    return { hello: 'world' }
+  Route.any('/', async () => {
+    return { message: 'This is the Mini Mundo api' }
   })
-
-  Route.post('/teachers/new', 'TeachersController.register')
 }).prefix('/api')
