@@ -42,8 +42,8 @@ const databaseConfig: DatabaseConfig = {
         password: Env.get('MYSQL_PASSWORD', ''),
         database: Env.get('MYSQL_DB_NAME'),
         ssl: {
-          rejectUnauthorized: false
-        }
+          rejectUnauthorized: false,
+        },
       },
       migrations: {
         naturalSort: true,
@@ -66,11 +66,11 @@ const databaseConfig: DatabaseConfig = {
     pg: {
       client: 'pg',
       connection: {
-        host: Env.get('PG_HOST'),
-        port: Env.get('PG_PORT'),
-        user: Env.get('PG_USER'),
-        password: Env.get('PG_PASSWORD', ''),
-        database: Env.get('PG_DB_NAME'),
+        host: Env.get('DB_HOST'),
+        port: Env.get('DB_PORT'),
+        user: Env.get('DB_USER'),
+        password: Env.get('DB_PASSWORD', ''),
+        database: Env.get('DB_DATABASE'),
       },
       migrations: {
         naturalSort: true,
