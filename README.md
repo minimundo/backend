@@ -12,7 +12,7 @@ Ps: to run the project make sure you have node version => 16.13.1 installed. If 
 4. Move to the appropriate directory: `cd backend`.<br />
 5. Run `npm install` to install the dependencies.<br />
 6. Copy the `.env.example` file to `.env` and set the database environment variables correctly:
-     > host, port, user, password, db-name
+   > host, port, user, password, db-name
 7. Run `npm run dev` or `node ace serve --watch`
 
 ## Deploy
