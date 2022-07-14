@@ -9,12 +9,12 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "start": "ENV_SILENT=true node server.js",
+    "start": "ENV_SILENT=true node build/server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^5.4.2",
+    "@adonisjs/assembler": "^5.8.0",
     "adonis-preset-ts": "^2.1.0",
     "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.5.0",
