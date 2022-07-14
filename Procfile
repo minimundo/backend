@@ -1,2 +1,2 @@
-release: sh ./release.sh
+release: npm run migration:prod
 web: npm start
