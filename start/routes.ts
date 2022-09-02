@@ -19,7 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import 'App/Modules/Teacher/routes'
+import 'App/Modules/User/routes'
 import 'App/Modules/Auth/routes'
 
 Route.where('id', {
