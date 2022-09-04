@@ -6,7 +6,7 @@ export default class Countries extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('name').notNullable()
+      table.string('name').notNullable().unique()
       table
         .enu('continent', [
           'América do Norte',
@@ -20,12 +20,6 @@ export default class Countries extends BaseSchema {
         ])
         .notNullable()
       table.text('flag_image')
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
-      table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
     })
   }
 
