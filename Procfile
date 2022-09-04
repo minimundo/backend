@@ -1,2 +1,2 @@
-release: npm run migration:prod && node ace db:seed --files "./database/seeders/CreateUsers.ts" 
+release: npm run migration:prod
 web: npm start
