@@ -22,4 +22,8 @@ export default Env.rules({
   APP_NAME: Env.schema.string(),
   DRIVE_DISK: Env.schema.enum(['local'] as const),
   NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
+  FIRST_EMAIL_SEED: Env.schema.string(),
+  FIRST_PASS_SEED: Env.schema.string(),
+  SECOND_EMAIL_SEED: Env.schema.string(),
+  SECOND_PASS_SEED: Env.schema.string(),
 })
