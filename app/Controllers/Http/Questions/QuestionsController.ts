@@ -3,7 +3,7 @@ import Question from 'App/Models/Question'
 
 export default class QuestionsController {
   public async index({}: HttpContextContract) {
-    const questions = await Question.query().orderBy('id', 'asc')
+    const questions = await Question.query().preload('creator').preload('country')
 
     return questions
   }
@@ -16,12 +16,16 @@ export default class QuestionsController {
     const question = await Question.create({ creatorId: user.id, ...data })
 
     await question.preload('creator')
+    await question.preload('country')
 
     return question
   }
 
   public async show({ params }: HttpContextContract) {
     const question = await Question.findOrFail(params.id)
+
+    await question.preload('creator')
+    await question.preload('country')
 
     return question
   }
@@ -44,6 +48,7 @@ export default class QuestionsController {
     await question.save()
 
     await question.preload('creator')
+    await question.preload('country')
 
     return question
   }
