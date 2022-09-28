@@ -13,10 +13,10 @@ export default class Question extends BaseModel {
   @belongsTo(() => User, { foreignKey: 'creatorId' })
   public creator: BelongsTo<typeof User>
 
-  @column()
+  @column({ serializeAs: null })
   public countryId: number
 
-  @belongsTo(() => Country)
+  @belongsTo(() => Country, { foreignKey: 'countryId' })
   public country: BelongsTo<typeof Country>
 
   @column()
@@ -54,6 +54,9 @@ export default class Question extends BaseModel {
         {
           creator: {
             fields: ['id', 'email', 'firstName', 'role'],
+          },
+          country: {
+            fields: ['id', 'name', 'continent'],
           },
         },
         false
