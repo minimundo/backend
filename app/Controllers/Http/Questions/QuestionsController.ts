@@ -2,8 +2,53 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Question from 'App/Models/Question'
 
 export default class QuestionsController {
-  public async index({}: HttpContextContract) {
-    const questions = await Question.query().preload('creator').preload('country')
+  public async index({ request }: HttpContextContract) {
+    const country = request.input('country')
+    const grade = request.input('grade')
+    const wording = request.input('wording')
+
+    let questions
+
+    if (country && !grade && !wording) {
+      questions = await Question.query()
+        .where('country_id', country)
+        .preload('creator')
+        .preload('country')
+    } else if (grade && !country && !wording) {
+      questions = await Question.query().where('grade', grade).preload('creator').preload('country')
+    } else if (wording && !country && !grade) {
+      questions = await Question.query()
+        .where('wording', 'LIKE', `%${wording}%`)
+        .preload('creator')
+        .preload('country')
+    } else if (country && grade) {
+      questions = await Question.query()
+        .where('country_id', country)
+        .where('grade', grade)
+        .preload('creator')
+        .preload('country')
+    } else if (country && wording) {
+      questions = await Question.query()
+        .where('country_id', country)
+        .where('wording', 'LIKE', `%${wording}%`)
+        .preload('creator')
+        .preload('country')
+    } else if (grade && wording) {
+      questions = await Question.query()
+        .where('grade', grade)
+        .where('wording', 'LIKE', `%${wording}%`)
+        .preload('creator')
+        .preload('country')
+    } else if (country && grade && wording) {
+      questions = await Question.query()
+        .where('country_id', country)
+        .where('grade', grade)
+        .where('wording', 'LIKE', `%${wording}%`)
+        .preload('creator')
+        .preload('country')
+    } else {
+      questions = await Question.query().preload('creator').preload('country')
+    }
 
     return questions
   }
