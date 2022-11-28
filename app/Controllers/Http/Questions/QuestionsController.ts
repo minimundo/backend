@@ -22,7 +22,7 @@ export default class QuestionsController {
     return response.json(await questions)
   }
 
-  public async store({ request, auth }: HttpContextContract) {
+  public async store({ request, response, auth }: HttpContextContract) {
     const data = request.all()
 
     const user = await auth.authenticate()
@@ -32,19 +32,19 @@ export default class QuestionsController {
     await question.preload('creator')
     await question.preload('country')
 
-    return question
+    return response.json(question)
   }
 
-  public async show({ params }: HttpContextContract) {
+  public async show({ response, params }: HttpContextContract) {
     const question = await Question.findOrFail(params.id)
 
     await question.preload('creator')
     await question.preload('country')
 
-    return question
+    return response.json(question)
   }
 
-  public async update({ request, params }: HttpContextContract) {
+  public async update({ request, response, params }: HttpContextContract) {
     const question = await Question.findOrFail(params.id)
     const data = request.only([
       'country_id',
@@ -64,7 +64,7 @@ export default class QuestionsController {
     await question.preload('creator')
     await question.preload('country')
 
-    return question
+    return response.json(question)
   }
 
   public async destroy({ params }: HttpContextContract) {
