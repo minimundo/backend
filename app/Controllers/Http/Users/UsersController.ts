@@ -2,24 +2,32 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 
 export default class UsersController {
-  public async index({}: HttpContextContract) {
-    const users = await User.query().orderBy('id', 'asc')
+  public async index({ response }: HttpContextContract) {
+    let users = User.query()
 
-    return users
+    users = users.orderBy('id', 'desc')
+
+    return response.json(await users)
   }
 
-  public async store({ request }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     const data = request.only(['email', 'password', 'name', 'role'])
 
-    const user = await User.create(data)
+    const user = User.create(data)
 
-    return user
+    return response.json(await user)
   }
 
   public async show({ params }: HttpContextContract) {
     const user = await User.findOrFail(params.id)
 
     return user
+  }
+
+  public async me({ response, auth }: HttpContextContract) {
+    const user = auth.user!
+
+    return response.json(user)
   }
 
   public async update({ request, params }: HttpContextContract) {

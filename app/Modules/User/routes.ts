@@ -9,3 +9,5 @@ Route.group(() => {
       destroy: ['acl:admin'],
     })
 }).prefix('/api')
+
+Route.get('/users/me', 'Users/UsersController.me').prefix('/api').middleware('auth')

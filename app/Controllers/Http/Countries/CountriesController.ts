@@ -2,24 +2,26 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Country from 'App/Models/Country'
 
 export default class CountriesController {
-  public async index({}: HttpContextContract) {
-    const countries = await Country.query().orderBy('id', 'asc')
+  public async index({ response }: HttpContextContract) {
+    let countries = Country.query()
 
-    return countries
+    countries = countries.orderBy('id', 'asc')
+
+    return response.json(await countries)
   }
 
-  public async store({ request }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     const data = request.all()
 
-    const country = await Country.create(data)
+    const country = Country.create(data)
 
-    return country
+    return response.json(await country)
   }
 
-  public async show({ params }: HttpContextContract) {
-    const country = await Country.findOrFail(params.id)
+  public async show({ response, params }: HttpContextContract) {
+    const country = Country.findOrFail(params.id)
 
-    return country
+    return response.json(await country)
   }
 
   public async update({ request, params }: HttpContextContract) {
