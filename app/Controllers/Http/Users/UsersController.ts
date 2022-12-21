@@ -7,6 +7,8 @@ export default class UsersController {
 
     users = users.orderBy('id', 'desc')
 
+    await users.preload('avatar')
+
     return response.json(await users)
   }
 
@@ -20,6 +22,8 @@ export default class UsersController {
 
   public async show({ params }: HttpContextContract) {
     const user = await User.findOrFail(params.id)
+
+    await user.load('avatar')
 
     return user
   }
