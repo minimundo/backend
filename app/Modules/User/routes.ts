@@ -11,3 +11,6 @@ Route.group(() => {
 }).prefix('/api')
 
 Route.get('/users/me', 'Users/UsersController.me').prefix('/api').middleware('auth')
+
+Route.put('/users/avatar', 'Users/AvatarController.update').prefix('/api').middleware('auth')
+Route.delete('/users/avatar', 'Users/AvatarController.destroy').prefix('/api').middleware('auth')
