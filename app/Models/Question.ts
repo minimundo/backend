@@ -1,7 +1,16 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, BelongsTo, CherryPick } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  belongsTo,
+  BelongsTo,
+  hasOne,
+  HasOne,
+  CherryPick,
+} from '@ioc:Adonis/Lucid/Orm'
 import User from 'App/Models/User'
 import Country from 'App/Models/Country'
+import File from 'App/Models/File'
 
 export default class Question extends BaseModel {
   @column({ isPrimary: true })
@@ -40,10 +49,10 @@ export default class Question extends BaseModel {
   @column()
   public correct_answer: string
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
 
   public serialize(cherryPick?: CherryPick) {
@@ -63,4 +72,10 @@ export default class Question extends BaseModel {
       ),
     }
   }
+
+  @hasOne(() => File, {
+    foreignKey: 'ownerId',
+    onQuery: (query) => query.where({ fileCategory: 'media' }),
+  })
+  public media: HasOne<typeof File>
 }

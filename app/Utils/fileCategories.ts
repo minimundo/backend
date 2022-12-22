@@ -1,4 +1,4 @@
-const fileCategories = ['avatar', 'flag', 'question'] as const
+const fileCategories = ['avatar', 'flag', 'media'] as const
 
 type FileCategory = typeof fileCategories[number]
 

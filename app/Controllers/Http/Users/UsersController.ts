@@ -1,5 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
+import Application from '@ioc:Adonis/Core/Application'
+import fs from 'fs'
 
 export default class UsersController {
   public async index({ response }: HttpContextContract) {
@@ -31,6 +33,8 @@ export default class UsersController {
   public async me({ response, auth }: HttpContextContract) {
     const user = auth.user!
 
+    await user.load('avatar')
+
     return response.json(user)
   }
 
@@ -47,6 +51,12 @@ export default class UsersController {
 
   public async destroy({ params }: HttpContextContract) {
     const user = await User.findOrFail(params.id)
+
+    await user.load('avatar')
+
+    if (user.avatar) {
+      fs.unlinkSync(Application.tmpPath('uploads', user.avatar.fileName))
+    }
 
     await user.delete()
   }
