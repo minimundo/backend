@@ -9,3 +9,7 @@ Route.group(() => {
       destroy: ['acl:admin'],
     })
 }).prefix('/api')
+
+Route.post('/countries/:id/flag', 'Countries/FlagController.store')
+  .prefix('/api')
+  .middleware('auth')
