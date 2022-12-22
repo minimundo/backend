@@ -19,7 +19,6 @@ export default class Countries extends BaseSchema {
           'Antártida',
         ])
         .notNullable()
-      table.text('flag_image')
     })
   }
 

@@ -1,5 +1,5 @@
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
-
+import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import File from 'App/Models/File'
 export default class Country extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -18,6 +18,9 @@ export default class Country extends BaseModel {
     | 'Ásia'
     | 'Antártida'
 
-  @column()
-  public flag_image: string
+  @hasOne(() => File, {
+    foreignKey: 'ownerId',
+    onQuery: (query) => query.where({ fileCategory: 'flag' }),
+  })
+  public flag: HasOne<typeof File>
 }

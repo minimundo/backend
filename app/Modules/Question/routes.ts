@@ -9,3 +9,7 @@ Route.group(() => {
       destroy: ['auth'],
     })
 }).prefix('/api')
+
+Route.post('/questions/:id/media', 'Questions/MediaController.store')
+  .prefix('/api')
+  .middleware('auth')

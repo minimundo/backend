@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, computed } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, computed, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import File from 'App/Models/File'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -38,4 +39,10 @@ export default class User extends BaseModel {
       user.password = await Hash.make(user.password)
     }
   }
+
+  @hasOne(() => File, {
+    foreignKey: 'ownerId',
+    onQuery: (query) => query.where({ fileCategory: 'avatar' }),
+  })
+  public avatar: HasOne<typeof File>
 }

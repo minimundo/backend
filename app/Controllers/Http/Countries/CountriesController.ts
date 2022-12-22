@@ -5,6 +5,8 @@ export default class CountriesController {
   public async index({ response }: HttpContextContract) {
     let countries = Country.query()
 
+    await countries.preload('flag')
+
     countries = countries.orderBy('id', 'asc')
 
     return response.json(await countries)
@@ -19,9 +21,11 @@ export default class CountriesController {
   }
 
   public async show({ response, params }: HttpContextContract) {
-    const country = Country.findOrFail(params.id)
+    const country = await Country.findOrFail(params.id)
 
-    return response.json(await country)
+    await country.load('flag')
+
+    return response.json(country)
   }
 
   public async update({ request, params }: HttpContextContract) {
