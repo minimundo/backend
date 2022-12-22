@@ -17,7 +17,7 @@ export default class QuestionsController {
       questions = questions.where('wording', 'LIKE', `%${request.input('wording')}%`)
     }
 
-    questions.preload('creator').preload('country')
+    questions.preload('creator').preload('country').preload('media')
 
     return response.json(await questions)
   }
@@ -38,8 +38,9 @@ export default class QuestionsController {
   public async show({ response, params }: HttpContextContract) {
     const question = await Question.findOrFail(params.id)
 
-    await question.preload('creator')
-    await question.preload('country')
+    await question.load('creator')
+    await question.load('country')
+    await question.load('media')
 
     return response.json(question)
   }
